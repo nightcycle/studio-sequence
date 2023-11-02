@@ -35,13 +35,13 @@ local STUDIO_IDS = {
 }
 local RBX_ASSET_PREFIX = "rbxassetid://"
 local STUDIO_IMAGES = {
-	LogoSequence_BackgroundStars = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_BackgroundStars,
-	LogoSequence_Body = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Body,
-	LogoSequence_BodyGlow = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_BodyGlow,
-	LogoSequence_FrontWheel = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_FrontWheel,
-	LogoSequence_Lines = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Lines,
-	LogoSequence_Moon = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Moon,
-	LogoSequence_Stars = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Stars,
+	LogoSequence_BackgroundStars = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_BackgroundStars,
+	LogoSequence_Body = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_Body,
+	LogoSequence_BodyGlow = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_BodyGlow,
+	LogoSequence_FrontWheel = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_FrontWheel,
+	LogoSequence_Lines = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_Lines,
+	LogoSequence_Moon = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_Moon,
+	LogoSequence_Stars = RBX_ASSET_PREFIX .. STUDIO_IDS.LogoSequence_Stars,
 }
 
 --Types
@@ -97,7 +97,7 @@ function StudioSequence:Run()
 		if self._IsAlive then
 			self.Step:Set(4)
 		end
-	
+
 		task.wait(SPEED * 1)
 		if self._IsAlive then
 			self.Step:Set(5)
@@ -106,13 +106,13 @@ function StudioSequence:Run()
 		if self._IsAlive then
 			self.Step:Set(6)
 		end
-	
+
 		task.wait(SPEED * 6)
 		if self._IsAlive then
 			self.Step:Set(-1)
 		end
 		task.wait(SPEED * 1)
-	end)		
+	end)
 	return nil
 end
 
@@ -127,18 +127,11 @@ function StudioSequence.new()
 	local _Value = _fuse.Value
 	local _Computed = _fuse.Computed
 
-
-
 	local AnchorPoint = _Value(Vector2.new(0.625, 0.6))
 	local Rotation = _Value(-12)
 	local Size = _Value(UDim2.fromScale(2 / 1.5, 1.3 / 1.5))
 
-	local function makeImage(
-		image: string,
-		zIndex: number,
-		transparency: number | State<number>,
-		color: (Color3 | State<Color3>)?
-	): ImageLabel
+	local function makeImage(image: string, zIndex: number, transparency: number | State<number>, color: (Color3 | State<Color3>)?): ImageLabel
 		local key = ""
 		for k, v in pairs(STUDIO_IMAGES) do
 			if v == image then
@@ -174,9 +167,7 @@ function StudioSequence.new()
 		Name = "NightcycleSequence",
 		DisplayOrder = 10000,
 		IgnoreGuiInset = true,
-		Parent = if RunService:IsRunning()
-			then Players.LocalPlayer:WaitForChild("PlayerGui")
-			else game:GetService("CoreGui"),
+		Parent = if RunService:IsRunning() then Players.LocalPlayer:WaitForChild("PlayerGui") else game:GetService("CoreGui"),
 		Children = {
 			_new("Frame")({
 				Name = "Background",
@@ -238,7 +229,7 @@ function StudioSequence.new()
 							end, Step):Tween(SPEED * 6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 						),
 					}),
-				} :: {[number]: any},
+				} :: { [number]: any },
 			}) :: ImageLabel,
 			makeImage(
 				STUDIO_IMAGES.LogoSequence_BodyGlow,
@@ -317,7 +308,7 @@ function StudioSequence.new()
 				end, Step):Tween(SPEED * 0.75),
 				ZIndex = 1000,
 			}),
-		} :: {[number]: any},
+		} :: { [number]: any },
 	})
 
 	local self: StudioSequence = setmetatable({
