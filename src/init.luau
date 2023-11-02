@@ -80,37 +80,39 @@ end
 
 function StudioSequence:Run()
 	self.Step:Set(0)
-	task.wait(SPEED * 3)
-	if self._IsAlive then
-		self.Step:Set(2)
-	end
-	task.wait(SPEED * 3)
-	self.Size:Set(UDim2.fromScale(1, 0.5))
-	self.AnchorPoint:Set(Vector2.new(0.5, 0.6))
-	self.Rotation:Set(0)
-	task.wait(SPEED * 2)
-	if self._IsAlive then
-		self.Step:Set(3)
-	end
-	task.wait(SPEED * 4)
-	if self._IsAlive then
-		self.Step:Set(4)
-	end
-
-	task.wait(SPEED * 1)
-	if self._IsAlive then
-		self.Step:Set(5)
-	end
-	task.wait(SPEED * 0.75)
-	if self._IsAlive then
-		self.Step:Set(6)
-	end
-
-	task.wait(SPEED * 6)
-	if self._IsAlive then
-		self.Step:Set(-1)
-	end
-	task.wait(SPEED * 1)
+	ContentProvider:PreloadAsync(TableUtil.values(STUDIO_IDS), function()
+		task.wait(SPEED * 3)
+		if self._IsAlive then
+			self.Step:Set(2)
+		end
+		task.wait(SPEED * 3)
+		self.Size:Set(UDim2.fromScale(1, 0.5))
+		self.AnchorPoint:Set(Vector2.new(0.5, 0.6))
+		self.Rotation:Set(0)
+		task.wait(SPEED * 2)
+		if self._IsAlive then
+			self.Step:Set(3)
+		end
+		task.wait(SPEED * 4)
+		if self._IsAlive then
+			self.Step:Set(4)
+		end
+	
+		task.wait(SPEED * 1)
+		if self._IsAlive then
+			self.Step:Set(5)
+		end
+		task.wait(SPEED * 0.75)
+		if self._IsAlive then
+			self.Step:Set(6)
+		end
+	
+		task.wait(SPEED * 6)
+		if self._IsAlive then
+			self.Step:Set(-1)
+		end
+		task.wait(SPEED * 1)
+	end)		
 	return nil
 end
 
@@ -333,18 +335,16 @@ end
 
 function StudioSequence.init(maid: Maid)
 	if not RunService:IsStudio() then
-		ContentProvider:PreloadAsync(TableUtil.values(STUDIO_IDS), function()
-			local studioMaid = Maid.new()
-			maid:GiveTask(studioMaid)
-	
-			local sequence = StudioSequence.new()
-			studioMaid:GiveTask(sequence)
-	
-			sequence:Run()
-			task.delay(1, function()
-				studioMaid:Destroy()
-			end)
-		end)		
+		local studioMaid = Maid.new()
+		maid:GiveTask(studioMaid)
+
+		local sequence = StudioSequence.new()
+		studioMaid:GiveTask(sequence)
+
+		sequence:Run()
+		task.delay(1, function()
+			studioMaid:Destroy()
+		end)
 	end
 	return nil
 end
