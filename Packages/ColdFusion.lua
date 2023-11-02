@@ -1,4 +1,4 @@
-local REQUIRED_MODULE = require(script.Parent._Index["nightcycle_cold-fusion@7.0.1"]["cold-fusion"])
+local REQUIRED_MODULE = require(script.Parent._Index["nightcycle_cold-fusion@9.0.7"]["cold-fusion"])
 export type State<T> = REQUIRED_MODULE.State<T>
 export type ValueState<T> = REQUIRED_MODULE.ValueState<T>
 export type CanBeState<T> = REQUIRED_MODULE.CanBeState<T>

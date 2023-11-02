@@ -1,4 +1,4 @@
-local REQUIRED_MODULE = require(script.Parent.Parent["nightcycle_physics-util@1.3.0"]["physics-util"])
+local REQUIRED_MODULE = require(script.Parent.Parent["nightcycle_physics-util@1.4.0"]["physics-util"])
 export type Newton = REQUIRED_MODULE.Newton 
 export type MetersPerSecondSquared = REQUIRED_MODULE.MetersPerSecondSquared 
 export type LightYear = REQUIRED_MODULE.LightYear 

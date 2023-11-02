@@ -4,13 +4,13 @@ registry = "test"
 
 [[package]]
 name = "nightcycle/cold-fusion"
-version = "7.0.1"
+version = "9.0.7"
 dependencies = [["Maid", "nightcycle/maid@1.1.4"], ["ServiceProxy", "nightcycle/service-proxy@1.0.0"], ["Signal", "nightcycle/signal@1.0.2"], ["TableUtil", "nightcycle/table-util@1.1.0"]]
 
 [[package]]
 name = "nightcycle/format-util"
 version = "1.0.0"
-dependencies = [["Maid", "nightcycle/maid@1.1.4"], ["NetworkUtil", "nightcycle/network-util@1.7.0"], ["PhysicsUtil", "nightcycle/physics-util@1.3.0"], ["Signal", "nightcycle/signal@1.0.2"]]
+dependencies = [["Maid", "nightcycle/maid@1.1.4"], ["NetworkUtil", "nightcycle/network-util@1.7.0"], ["PhysicsUtil", "nightcycle/physics-util@1.4.0"], ["Signal", "nightcycle/signal@1.0.2"]]
 
 [[package]]
 name = "nightcycle/maid"
@@ -23,8 +23,13 @@ version = "1.7.0"
 dependencies = [["Maid", "nightcycle/maid@1.1.4"], ["Signal", "nightcycle/signal@1.0.2"]]
 
 [[package]]
+name = "nightcycle/package"
+version = "0.1.0"
+dependencies = [["ColdFusion", "nightcycle/cold-fusion@9.0.7"], ["FormatUtil", "nightcycle/format-util@1.0.0"], ["Maid", "nightcycle/maid@1.1.4"], ["Signal", "nightcycle/signal@1.0.2"], ["TableUtil", "nightcycle/table-util@1.1.0"]]
+
+[[package]]
 name = "nightcycle/physics-util"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = []
 
 [[package]]
@@ -36,11 +41,6 @@ dependencies = []
 name = "nightcycle/signal"
 version = "1.0.2"
 dependencies = []
-
-[[package]]
-name = "nightcycle/studio-sequence"
-version = "1.0.0"
-dependencies = [["ColdFusion", "nightcycle/cold-fusion@7.0.1"], ["FormatUtil", "nightcycle/format-util@1.0.0"], ["Maid", "nightcycle/maid@1.1.4"], ["PhysicsUtil", "nightcycle/physics-util@1.3.0"], ["Signal", "nightcycle/signal@1.0.2"]]
 
 [[package]]
 name = "nightcycle/table-util"

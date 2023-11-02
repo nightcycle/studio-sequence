@@ -2,6 +2,7 @@
 --Services
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local ContentProvider = game:GetService("ContentProvider")
 
 --Packages
 local Package = script
@@ -11,6 +12,7 @@ local Maid = require(Packages:WaitForChild("Maid"))
 local Signal = require(Packages:WaitForChild("Signal"))
 local ColdFusion = require(Packages:WaitForChild("ColdFusion"))
 local FormatUtil = require(Packages:WaitForChild("FormatUtil"))
+local TableUtil = require(Packages:WaitForChild("TableUtil"))
 
 --Constants
 local STEPS = {
@@ -22,15 +24,24 @@ local STEPS = {
 	FINAL_LOGO = 6,
 }
 local SPEED = 0.625
+local STUDIO_IDS = {
+	LogoSequence_BackgroundStars = 12018190942,
+	LogoSequence_Body = 12018191073,
+	LogoSequence_BodyGlow = 12018191208,
+	LogoSequence_FrontWheel = 12023235991,
+	LogoSequence_Lines = 12018191693,
+	LogoSequence_Moon = 12023236500,
+	LogoSequence_Stars = 12018192094,
+}
 local RBX_ASSET_PREFIX = "rbxassetid://"
 local STUDIO_IMAGES = {
-	LogoSequence_BackgroundStars = RBX_ASSET_PREFIX.."12018190942",
-	LogoSequence_Body = RBX_ASSET_PREFIX.."12018191073",
-	LogoSequence_BodyGlow = RBX_ASSET_PREFIX.."12018191208",
-	LogoSequence_FrontWheel = RBX_ASSET_PREFIX.."12023235991",
-	LogoSequence_Lines = RBX_ASSET_PREFIX.."12018191693",
-	LogoSequence_Moon = RBX_ASSET_PREFIX.."12023236500",
-	LogoSequence_Stars = RBX_ASSET_PREFIX.."12018192094",
+	LogoSequence_BackgroundStars = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_BackgroundStars,
+	LogoSequence_Body = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Body,
+	LogoSequence_BodyGlow = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_BodyGlow,
+	LogoSequence_FrontWheel = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_FrontWheel,
+	LogoSequence_Lines = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Lines,
+	LogoSequence_Moon = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Moon,
+	LogoSequence_Stars = RBX_ASSET_PREFIX..STUDIO_IDS.LogoSequence_Stars,
 }
 
 --Types
@@ -322,15 +333,18 @@ end
 
 function StudioSequence.init(maid: Maid)
 	if not RunService:IsStudio() then
-		local studioMaid = Maid.new()
-		maid:GiveTask(studioMaid)
-		local sequence = StudioSequence.new()
-		studioMaid:GiveTask(sequence)
-
-		sequence:Run()
-		task.delay(1, function()
-			studioMaid:Destroy()
-		end)
+		ContentProvider:PreloadAsync(TableUtil.values(STUDIO_IDS), function()
+			local studioMaid = Maid.new()
+			maid:GiveTask(studioMaid)
+	
+			local sequence = StudioSequence.new()
+			studioMaid:GiveTask(sequence)
+	
+			sequence:Run()
+			task.delay(1, function()
+				studioMaid:Destroy()
+			end)
+		end)		
 	end
 	return nil
 end
