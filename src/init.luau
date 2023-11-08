@@ -80,7 +80,7 @@ end
 
 function StudioSequence:Run()
 	self.Step:Set(0)
-	ContentProvider:PreloadAsync(TableUtil.values(STUDIO_IDS), function()
+	ContentProvider:PreloadAsync(TableUtil.values(STUDIO_IMAGES), function()
 		task.wait(SPEED * 3)
 		if self._IsAlive then
 			self.Step:Set(2)
