@@ -133,7 +133,7 @@ function StudioSequence:Run()
 		else
 			return
 		end
-		task.wait(SPEED * 0.75)
+		task.wait(SPEED * 3)
 		if self._IsAlive then
 			self.OnRunComplete:Fire()
 		else
@@ -332,7 +332,7 @@ function StudioSequence.new()
 					else
 						return 1
 					end
-				end, Step):Tween(SPEED * 0.75),
+				end, Step):Tween(SPEED * 3),
 				ZIndex = 1000,
 			}),
 		} :: { [number]: any },
