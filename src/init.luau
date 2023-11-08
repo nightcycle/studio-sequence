@@ -84,32 +84,48 @@ function StudioSequence:Run()
 		task.wait(SPEED * 3)
 		if self._IsAlive then
 			self.Step:Set(2)
+		else
+			return
 		end
 		task.wait(SPEED * 3)
-		self.Size:Set(UDim2.fromScale(1, 0.5))
-		self.AnchorPoint:Set(Vector2.new(0.5, 0.6))
-		self.Rotation:Set(0)
+		if self._IsAlive then
+			self.Size:Set(UDim2.fromScale(1, 0.5))
+			self.AnchorPoint:Set(Vector2.new(0.5, 0.6))
+			self.Rotation:Set(0)
+		else
+			return
+		end
 		task.wait(SPEED * 2)
 		if self._IsAlive then
 			self.Step:Set(3)
+		else
+			return
 		end
 		task.wait(SPEED * 4)
 		if self._IsAlive then
 			self.Step:Set(4)
+		else
+			return
 		end
 
 		task.wait(SPEED * 1)
 		if self._IsAlive then
 			self.Step:Set(5)
+		else
+			return
 		end
 		task.wait(SPEED * 0.75)
 		if self._IsAlive then
 			self.Step:Set(6)
+		else
+			return
 		end
 
 		task.wait(SPEED * 6)
 		if self._IsAlive then
 			self.Step:Set(-1)
+		else
+			return
 		end
 		task.wait(SPEED * 1)
 	end)
@@ -333,7 +349,7 @@ function StudioSequence.init(maid: Maid)
 		studioMaid:GiveTask(sequence)
 
 		sequence:Run()
-		task.delay(1, function()
+		task.delay(30, function()
 			studioMaid:Destroy()
 		end)
 	end
