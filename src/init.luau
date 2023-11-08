@@ -58,6 +58,7 @@ export type StudioSequence = {
 	init: (Maid) -> nil,
 	Step: ValueState<number>,
 	Size: ValueState<UDim2>,
+	OnRunComplete: Signal,
 	Rotation: ValueState<number>,
 	AnchorPoint: ValueState<Vector2>,
 	Run: (self: StudioSequence) -> nil,
@@ -67,6 +68,8 @@ export type StudioSequence = {
 -- Class
 local StudioSequence: StudioSequence = {} :: any
 StudioSequence.__index = StudioSequence
+
+StudioSequence.OnRunComplete = Signal.new()
 
 function StudioSequence:Destroy()
 	self.Maid:Destroy()
@@ -128,6 +131,7 @@ function StudioSequence:Run()
 			return
 		end
 		task.wait(SPEED * 1)
+		self.OnRunComplete:Fire()
 	end)
 	return nil
 end
@@ -335,6 +339,7 @@ function StudioSequence.new()
 		Size = Size,
 		AnchorPoint = AnchorPoint,
 		Instance = ScreenGui,
+		
 	} :: any, StudioSequence)
 
 	return self
