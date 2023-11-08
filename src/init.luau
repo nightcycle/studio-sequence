@@ -22,6 +22,7 @@ local STEPS = {
 	GLOW_FILLED_LINES = 4,
 	COLOR_FILLED_GLOW = 5,
 	FINAL_LOGO = 6,
+	FADE_AWAY = 7,
 }
 local SPEED = 0.625
 local STUDIO_IDS = {
@@ -126,11 +127,11 @@ function StudioSequence:Run()
 
 		task.wait(SPEED * 6)
 		if self._IsAlive then
-			self.Step:Set(-1)
+			self.Step:Set(7)
 		else
 			return
 		end
-		task.wait(SPEED * 1)
+		task.wait(SPEED * 0.75)
 		self.OnRunComplete:Fire()
 	end)
 	return nil
@@ -354,9 +355,10 @@ function StudioSequence.init(maid: Maid)
 		studioMaid:GiveTask(sequence)
 
 		sequence:Run()
-		task.delay(30, function()
+
+		studioMaid:GiveTask(StudioSequence.OnRunComplete:Connect(function()
 			studioMaid:Destroy()
-		end)
+		end))
 	end
 	return nil
 end
