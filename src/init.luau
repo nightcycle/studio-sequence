@@ -295,7 +295,7 @@ function StudioSequence.new()
 			}),
 			_new("Frame")({
 				Name = "Background",
-				Size = UDim2.fromScale(1, 1),
+				Size = UDim2.fromScale(1, 2),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundColor3 = Color3.new(0, 0, 0),
@@ -325,7 +325,7 @@ function StudioSequence.new()
 end
 
 function StudioSequence.init(maid: Maid)
-	if not RunService:IsStudio() then
+	if (not RunService:IsStudio()) or RunService:IsRunning() == false then
 		local studioMaid = Maid.new()
 		maid:GiveTask(studioMaid)
 
