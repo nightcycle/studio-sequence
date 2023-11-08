@@ -76,7 +76,9 @@ function StudioSequence:Destroy()
 	self.Maid:Destroy()
 	local t: any = self
 	for k, v in pairs(t) do
-		t[k] = nil
+		if k ~= "OnRunComplete" then
+			t[k] = nil
+		end
 	end
 	setmetatable(t, nil)
 	return nil
@@ -132,7 +134,11 @@ function StudioSequence:Run()
 			return
 		end
 		task.wait(SPEED * 0.75)
-		self.OnRunComplete:Fire()
+		if self._IsAlive then
+			self.OnRunComplete:Fire()
+		else
+			return
+		end
 	end)
 	return nil
 end
