@@ -273,7 +273,7 @@ function StudioSequence.new()
 				STUDIO_IMAGES.LogoSequence_Body,
 				6,
 				_Computed(function(step: number)
-					if STEPS.COLOR_FILLED_GLOW <= step then
+					if STEPS.COLOR_FILLED_GLOW <= step and STEPS.FADE_AWAY > step then
 						return 0
 					else
 						return 1
@@ -284,7 +284,7 @@ function StudioSequence.new()
 				STUDIO_IMAGES.LogoSequence_FrontWheel,
 				6,
 				_Computed(function(step: number)
-					if STEPS.GLOW_FILLED_LINES <= step then
+					if STEPS.GLOW_FILLED_LINES <= step and STEPS.FADE_AWAY > step  then
 						return 0
 					else
 						return 1
@@ -307,8 +307,8 @@ function StudioSequence.new()
 				TextStrokeTransparency = 1,
 				TextScaled = true,
 				BackgroundTransparency = 1,
-				TextTransparency = _Computed(function(step: number)
-					if STEPS.FINAL_LOGO <= step and step >= STEPS.COLOR_FILLED_GLOW then
+				TextTransparency = _Computed(function(step: number): number
+					if STEPS.FINAL_LOGO <= step and step >= STEPS.COLOR_FILLED_GLOW and STEPS.FADE_AWAY > step then
 						return 0
 					else
 						return 1
@@ -346,7 +346,6 @@ function StudioSequence.new()
 		Size = Size,
 		AnchorPoint = AnchorPoint,
 		Instance = ScreenGui,
-		
 	} :: any, StudioSequence)
 
 	return self
